@@ -7,7 +7,7 @@ To quantify how good a system's answers are in terms of comparing the system's o
 
 This is how to run our script scoring.py from the command line: 
 
-INSERT COMMANDS HERE
+./python --goldfile <goldfilename> --predfile <predfilename>
 
 [[1]](https://web.stanford.edu/class/cs224n/reports/custom/15785631.pdf) Ma, G. (2019). Tweets Classification with BERT in the Field of Disaster Management.
 
