@@ -1,5 +1,6 @@
 import pprint
 import argparse
+from sklearn.metrics import f1_score
 
 pp = pprint.PrettyPrinter()
 parser = argparse.ArgumentParser()
@@ -25,35 +26,32 @@ def readLabels(datafile):
 
 
 def computePRF(truthlabels, predlabels):
-    tp = 0
-    fp = 0
-    fn = 0
-    tn = 0
+    correct = 0
+    incorrect = 0
     for t, p in zip(truthlabels, predlabels):
-        if t == 1:
-            if p == 1:
-                tp += 1
-            else:
-                fn += 1
+        if t == p:
+            correct += 1
         else:
-            if p == 1:
-                fp += 1
-            else:
-                tn += 1
+            incorrect += 1
 
-    prec = float(tp)/float(tp + fp)
-    recall = float(tp)/float(tp + fn)
-    f1 = 2*prec*recall/(prec + recall)
+    accuracy = float(correct)/float(correct+incorrect)
+    print("Accuracy:{}".format(accuracy))
 
-    print("Precision:{} Recall:{} F1:{}".format(prec, recall, f1))
+    f1 = f1_score(truthlabels, predlabels, average='micro')
+    print("F1:{}".format(f1))
+    return accuracy, f1
+    # prec = float(tp)/float(tp + fp)
+    # recall = float(tp)/float(tp + fn)
+    # f1 = 2*prec*recall/(prec + recall)
 
-    return prec, recall, f1
+    # print("Precision:{} Recall:{} F1:{}".format(prec, recall, f1))
+
+    # return prec, recall, f1
 
 
 def main(args):
     gold = readLabels(args.goldfile)
     pred = readLabels(args.predfile)
-
     print("Performance")
     computePRF(gold, pred)
 
