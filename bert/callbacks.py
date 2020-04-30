@@ -9,7 +9,6 @@ import io
 import numpy as np
 import torch
 
-
 from bert.utils import accuracy_score
 
 
