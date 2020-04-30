@@ -8,17 +8,7 @@ import csv
 import io
 import numpy as np
 import torch
-<<<<<<< HEAD
 
-from bert.utils import accuracy_score
-
-from bert.utils import accuracy_score
-
-from bert.utils import accuracy_score
-=======
->>>>>>> f4b502d... Fix EvaluateModel callback
-
-from bert.utils import accuracy_score
 
 from bert.utils import accuracy_score
 
