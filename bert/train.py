@@ -1,4 +1,3 @@
-import time
 import torch
 
 from bert.callbacks import *
