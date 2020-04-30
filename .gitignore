@@ -1,1 +1,6 @@
 .DS_Store
+.ipynb_checkpoints/
+*.zip
+__pycache__
+logs/
+models/
