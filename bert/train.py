@@ -9,11 +9,6 @@ def predict_episode(model,
                     optimizer=None,
                     scheduler=None,
                     train=True):
-    if train:
-        model.train()
-        model.zero_grad()
-    else:
-        model.eval()
 
     device = next(model.parameters()).device
     input_ids = batch[0].to(device)
@@ -21,6 +16,9 @@ def predict_episode(model,
     labels = batch[2].to(device)
 
     if train:
+        model.train()
+        model.zero_grad()
+
         output = model(input_ids,
                      attention_mask=input_masks,
                      labels=labels)
@@ -31,12 +29,13 @@ def predict_episode(model,
         scheduler.step()
         return loss
     else:
+        model.eval()
+
         with torch.no_grad():
             output = model(input_ids,
                            attention_mask=input_masks)
             logits = output[0]
-            loss = output[1]
-            return logits, loss
+            return logits
 
 def fit(model,
         optimizer,
