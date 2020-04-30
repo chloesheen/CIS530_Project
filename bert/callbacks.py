@@ -2,10 +2,14 @@
 Callbacks to be used when training models.
 """
 from tqdm import tqdm
-from collections import OrderedDict
+from collections import OrderedDict, Iterable
 import os
 import csv
 import io
+import numpy as np
+import torch
+
+from bert.utils import accuracy_score
 
 
 class Callback(object):
@@ -156,14 +160,13 @@ class EvaluateModel(Callback):
         batch_size = self.params['batch_size']
 
         for batch_index, batch in enumerate(self.dataloader):
-            logits, loss = self.eval_fn(model, batch, train=False)
+            loss, logits = self.eval_fn(self.model, batch, train=False)
             labels = batch[2]
 
             seen += batch_size
 
-            totals['loss'] += loss.item() * batch_size
             totals['accuracy'] += accuracy_score(logits, labels) * batch_size
-            batch_size
+            totals['loss'] += loss * batch_size
 
         logs['loss'] = totals['loss'] / seen
         logs['accuracy'] = totals['accuracy'] / seen
@@ -182,7 +185,7 @@ class ModelCheckpoint(Callback):
         self.verbose = verbose
         self.filepath = filepath
 
-    def on_train_end():
+    def on_train_end(self, logs=None):
         if self.verbose:
             print(f'\nSaving model to {self.filepath}')
         torch.save(self.model.state_dict(), self.filepath)
