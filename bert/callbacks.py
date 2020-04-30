@@ -6,6 +6,10 @@ from collections import OrderedDict
 import os
 import csv
 import io
+import numpy as np
+import torch
+
+from bert.utils import accuracy_score
 
 
 class Callback(object):
@@ -156,12 +160,11 @@ class EvaluateModel(Callback):
         batch_size = self.params['batch_size']
 
         for batch_index, batch in enumerate(self.dataloader):
-            logits, loss = self.eval_fn(model, batch, train=False)
+            logits = self.eval_fn(self.model, batch, train=False)
             labels = batch[2]
 
             seen += batch_size
 
-            totals['loss'] += loss.item() * batch_size
             totals['accuracy'] += accuracy_score(logits, labels) * batch_size
             batch_size
 
