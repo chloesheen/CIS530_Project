@@ -156,7 +156,7 @@ class EvaluateModel(Callback):
         batch_size = self.params['batch_size']
 
         for batch_index, batch in enumerate(self.dataloader):
-            logits, loss = self.eval_fn(model, batch, train=False)
+            logits, loss = self.eval_fn(self.model, batch, train=False)
             labels = batch[2]
 
             seen += batch_size
