@@ -9,11 +9,6 @@ def predict_episode(model,
                     optimizer=None,
                     scheduler=None,
                     train=True):
-    if train:
-        model.train()
-        model.zero_grad()
-    else:
-        model.eval()
 
     device = next(model.parameters()).device
     input_ids = batch[0].to(device)
@@ -21,6 +16,9 @@ def predict_episode(model,
     labels = batch[2].to(device)
 
     if train:
+        model.train()
+        model.zero_grad()
+
         output = model(input_ids,
                      attention_mask=input_masks,
                      labels=labels)
@@ -31,12 +29,13 @@ def predict_episode(model,
         scheduler.step()
         return loss
     else:
+        model.eval()
+
         with torch.no_grad():
             output = model(input_ids,
                            attention_mask=input_masks)
             logits = output[0]
-            loss = output[1]
-            return logits, loss
+            return logits
 
 def fit(model,
         optimizer,
@@ -94,40 +93,3 @@ def fit(model,
         print("Finished.")
 
     callbacks.on_train_end()
-
-
-def eval_model(model, dataloader):
-    """
-    Evaluate the model.
-    """
-
-    device = next(model.parameters()).device
-    t_start = time.time()
-    model.eval()
-
-    for step, batch in enumerate(dataloader):
-        elapsed = format_time(time.time() - t_start)
-
-        if step % 40 == 0 and not step == 0:
-            print("    Batch {:>5,} of {:>5,}.    Elapsed: {:}.".format(step, len(dataloader), elapsed))
-    
-        
-        input_ids = batch[0].to(device)
-        input_masks = batch[1].to(device)
-        labels = batch[2].to(device)
-
-        with torch.no_grad():
-
-            outputs = model(input_ids, attention_mask=input_masks, labels=labels)
-
-        logits = outputs[0].detach().cpu().numpy()
-        labels = labels.detach().cpu().nump()
-
-        batch_accuracy = accuracy_score(logits, labels)
-
-        total_accuracy += batch_accuracy
-
-    total_accuracy = total_accuracy / len(dataloader)
-    print("     Accuracy: {0.5f}".format(total_accuracy))
-    
-    return total_accuracy
