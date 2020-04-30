@@ -2,7 +2,7 @@ import time
 import torch
 
 from bert.callbacks import *
-from bert.utils import  accuracy_score, format_time
+from bert.utils import  accuracy_score
 
 def predict_episode(model,
                     batch,
