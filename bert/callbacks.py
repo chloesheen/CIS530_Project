@@ -7,6 +7,8 @@ import os
 import csv
 import io
 
+from bert.utils import accuracy_score
+
 
 class Callback(object):
     def __init__(self):
