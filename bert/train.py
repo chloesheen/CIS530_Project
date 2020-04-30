@@ -35,7 +35,6 @@ def predict_episode(model,
             output = model(input_ids,
                            attention_mask=input_masks)
             logits = output[0]
-            print("OUTPUT: ", output)
             return logits
 
 def fit(model,
