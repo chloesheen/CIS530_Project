@@ -2,7 +2,7 @@
 Callbacks to be used when training models.
 """
 from tqdm import tqdm
-from collections import OrderedDict
+from collections import OrderedDict, Iterable
 import os
 import csv
 import io
