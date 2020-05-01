@@ -53,8 +53,11 @@ def fit(model,
     batch_size = dataloader.batch_size
     loss_values = []
 
-    callbacks = CallbackList([DefaultCallback()] + (callbacks or []) +
-                             [ProgressBarLogger()])
+    callbacks = CallbackList(
+        # [DefaultCallback()] + 
+        (callbacks or []) +
+        [ProgressBarLogger()]
+    )
     callbacks.set_model(model)
     callbacks.set_params({
         'num_batches': num_batches,

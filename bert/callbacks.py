@@ -156,7 +156,7 @@ class EvaluateModel(Callback):
     def on_epoch_end(self, epoch, logs=None):
         logs = logs or {}
         seen = 0
-        totals = {'loss': 0, 'accuracy': 0}
+        totals = {'val_loss': 0, 'val_accuracy': 0}
         batch_size = self.params['batch_size']
 
         for batch_index, batch in enumerate(self.dataloader):
