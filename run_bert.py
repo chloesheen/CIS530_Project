@@ -132,7 +132,7 @@ test_masks = torch.tensor(test_attention_masks)
 test_labels = torch.tensor(test_df.author_id.values)
 
 
-train_data = TensorDataset(train_input_ids, train_masks, train_labels)
+train_dataset = TensorDataset(train_input_ids, train_masks, train_labels)
 # train_dataset = Reuters50Dataset('train', 
 #                                  args.model_type, 
 #                                  tokenizer,
@@ -142,7 +142,7 @@ train_dataloader = DataLoader(train_dataset,
                               sampler=train_sampler,
                               batch_size=batch_size)
 
-validation_data = TensorDataset(test_input_ids, test_masks, test_labels)
+test_dataset = TensorDataset(test_input_ids, test_masks, test_labels)
 # test_dataset = Reuters50Dataset('test',
 #                                 args.model_type,
 #                                 tokenizer,
