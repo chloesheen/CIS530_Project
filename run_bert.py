@@ -3,6 +3,7 @@ BERT model for author identification.
 """
 import argparse
 import math
+import pandas as pd
 import torch
 from torch.utils.data import TensorDataset, DataLoader, RandomSampler, SequentialSampler
 from transformers import (
