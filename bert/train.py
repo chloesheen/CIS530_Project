@@ -81,15 +81,15 @@ def fit(model,
         model.train()
 
         for batch_index, batch in enumerate(dataloader):
-            batch_logs = dict(batch=batch_index, size=(batch_size or 1))
+            # batch_logs = dict(batch=batch_index, size=(batch_size or 1))
 
-            callbacks.on_batch_begin(batch_index, batch_logs)
+            # callbacks.on_batch_begin(batch_index, batch_logs)
 
             loss, logits = predict_episode(model, batch, optimizer, scheduler)
             
-            batch_logs['loss'] = loss.item()
+            # batch_logs['loss'] = loss.item()
 
-            callbacks.on_batch_end(batch_index, batch_logs)
+            # callbacks.on_batch_end(batch_index, batch_logs)
 
 
         callbacks.on_epoch_end(epoch, epoch_logs)
