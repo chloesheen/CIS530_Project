@@ -114,8 +114,8 @@ def get_attention_masks(padded_encodings):
         attention_masks.append(attention_mask)
     return attention_masks
 
-train_df = pd.read_pickle(ROOT + '/reuters50_train.pkl')
-test_df = pd.read_pickle(ROOT + '/reuters50_test.pkl')
+train_df = pd.read_pickle(DATA_PATH + '/reuters50_train.pkl')
+test_df = pd.read_pickle(DATA_PATH + '/reuters50_test.pkl')
 
 train_encodings = get_encodings(train_df.text.values)
 train_attention_masks = get_attention_masks(train_encodings)
