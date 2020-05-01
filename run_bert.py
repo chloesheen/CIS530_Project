@@ -77,7 +77,7 @@ parser.add_argument('--max-length', type=int, default=512)
 args = parser.parse_args()
 
 batch_size = 8
-epochs = 4
+epochs = 1
 lr=4e-5
 epsilon=1e-8
 
@@ -178,7 +178,7 @@ callbacks = [
     ModelCheckpoint(
         filepath=PATH + f'/models/{param_str}.pth'
     ),
-    CSVLogger(PATH + f'/logs/{param_str}.csv'),
+    # CSVLogger(PATH + f'/logs/{param_str}.csv'),
 ]
 
 fit(

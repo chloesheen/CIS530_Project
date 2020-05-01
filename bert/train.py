@@ -1,3 +1,4 @@
+import time
 import torch
 
 from bert.callbacks import *
@@ -69,6 +70,7 @@ def fit(model,
 
     if verbose:
         print("Begin training...")
+    t_start = time.time()
 
     callbacks.on_train_begin()
 
@@ -91,6 +93,9 @@ def fit(model,
             # batch_logs['loss'] = loss.item()
 
             callbacks.on_batch_end(batch_index, batch_logs)
+
+            t_elapsed = (time.time() - t_start) / 60
+            print(f'Time elapsed: {t_elapsed}')
 
 
         callbacks.on_epoch_end(epoch, epoch_logs)
