@@ -22,19 +22,22 @@ def predict_episode(model,
                      attention_mask=input_masks,
                      labels=labels)
         loss = output[0]
+        logits = output[1]
         loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
         optimizer.step()
         scheduler.step()
-        return loss
+        return loss, logits
     else:
         model.eval()
 
         with torch.no_grad():
             output = model(input_ids,
-                           attention_mask=input_masks)
-            logits = output[0]
-            return logits
+                           attention_mask=input_masks,
+                           labels=labels)
+            loss = output[0]
+            logits = output[1]
+            return loss, logits
 
 def fit(model,
         optimizer,
@@ -79,7 +82,7 @@ def fit(model,
 
             callbacks.on_batch_begin(batch_index, batch_logs)
 
-            loss = predict_episode(model, batch, optimizer, scheduler)
+            loss, logits = predict_episode(model, batch, optimizer, scheduler)
             
             batch_logs['loss'] = loss.item()
 

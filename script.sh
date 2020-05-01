@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 python run_bert.py \
   --model-type bert \
   --model-name bert-base-uncased \
