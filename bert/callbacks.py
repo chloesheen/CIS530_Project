@@ -165,11 +165,11 @@ class EvaluateModel(Callback):
 
             seen += batch_size
 
-            totals['accuracy'] += accuracy_score(logits, labels) * batch_size
-            totals['loss'] += loss * batch_size
+            totals['val_accuracy'] += accuracy_score(logits, labels) * batch_size
+            totals['val_loss'] += loss.item() * batch_size
 
-        logs['loss'] = totals['loss'] / seen
-        logs['accuracy'] = totals['accuracy'] / seen
+        logs['val_loss'] = totals['val_loss'] / seen
+        logs['val_accuracy'] = totals['val_accuracy'] / seen
 
 
 class ModelCheckpoint(Callback):
