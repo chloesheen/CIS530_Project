@@ -1,6 +1,6 @@
 # Code
 
-All of our code are self-contained in individual Jupyter notebooks. Each
+All of our code is self-contained in individual Jupyter notebooks. Each
 notebook is named after the experiment it runs.
 
 * For BERT experiments: `BERT_experiments.ipynb`
