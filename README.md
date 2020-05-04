@@ -8,6 +8,6 @@ Authorship classification is an essential topic in Natural Language Processing, 
 The full report of our findings can be found in `CIS530_Final_Project.pdf`.
 
 ## How to run
-All our code for this project is self-contained in individual Jupyter notebooks
+All of our code for this project is self-contained in individual Jupyter notebooks
 which can be found in the `code/` folder. Please refer to the readme there for more
 detailed instructions.
